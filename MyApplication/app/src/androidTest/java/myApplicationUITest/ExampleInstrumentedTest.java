@@ -1,4 +1,4 @@
-package com.example.pcrbrandao.myapplication;
+package myApplicationUITest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.example.pcrbrandao.myapplication;
+package myApplicationUnitTest;
 
 import org.junit.Test;
 
