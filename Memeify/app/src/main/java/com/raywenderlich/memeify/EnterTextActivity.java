@@ -24,6 +24,11 @@ import java.sql.SQLClientInfoException;
 
 public class EnterTextActivity extends Activity implements View.OnClickListener {
 
+    // constantes para activity
+    private static final String IMAGE_URI_KEY = "IMAGE_URI";
+    private static final String BITMAP_WIDTH = "BITMAP_WIDTH";
+    private static final String BITMAP_HEIGHT = "BITMAP_HEIGHT";
+
     private static final String APP_PICTURE_DIRECTORY = "/Memeify";
     private static final String FILE_SUFFIX_JPG = ".jpg";
     private static final String HELVETICA_FONT = "Helvetica";

@@ -1,6 +1,7 @@
 package com.raywenderlich.memeify;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +23,14 @@ import java.util.Locale;
 
 
 public class TakePictureActivity extends Activity implements View.OnClickListener {
+
+    // chaves para extras de intents na próxima tela
+    private static final String IMAGE_URI_KEY = "IMAGE_URI";
+    private static final String BITMAP_WIDTH = "BITMAP_WIDTH";
+    private static final String BITMAP_HEIGHT = "BITMAP_HEIGHT";
+
+    private static final int TAKE_PHOTO_REQUEST_CODE = 1; // identifica o intent quando ele retornar
+    private Boolean pictureTaken = false; // controle para saber se uma foto foi tirada
 
     private static final String APP_PICTURE_DIRECTORY = "/Memeify";
     private static final String MIME_TYPE_IMAGE = "image/";
@@ -59,6 +69,7 @@ public class TakePictureActivity extends Activity implements View.OnClickListene
         switch (v.getId()) {
 
             case R.id.picture_imageview:
+                takePictureWithCamera();
                 break;
 
             case R.id.enter_text_button:
@@ -68,6 +79,49 @@ public class TakePictureActivity extends Activity implements View.OnClickListene
                 break;
         }
     }
+
+    /**
+     * O implicit intent(só tem a descrição como parâmetro) recebe a string MediaStore.ACTION_IMAGE_CAPTURE que é a descrição do trabalho
+     * a ser feito. Ele guarda path em selectedPhotoPath e executa o intent.
+     */
+    private void takePictureWithCamera() {
+
+        // cria um intent para capturar uma imagem da camera
+        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File photoFile = createImageFile();
+        selectedPhotoPath = Uri.parse(photoFile.getAbsolutePath());
+
+        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+        startActivityForResult(captureIntent, TAKE_PHOTO_REQUEST_CODE);
+    }
+
+    /**
+     * Executa somente quando um activity iniciada por startActivityForResult() termina e retorna
+     * para o app.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) {
+            setImageViewWithImage();
+        }
+    }
+
+    /**
+     * Coloca a imagem no lugar.
+     */
+    private void setImageViewWithImage() {
+        Bitmap pictureBitmap = BitmapResizer.ShrinkBitmap(selectedPhotoPath.toString(),
+                takePictureImageView.getWidth(),
+                takePictureImageView.getHeight());
+        takePictureImageView.setImageBitmap(pictureBitmap);
+        lookingGoodTextView.setVisibility(View.VISIBLE);
+        pictureTaken = true;
+    }
+
 
     private File createImageFile() {
 
@@ -108,5 +162,20 @@ public class TakePictureActivity extends Activity implements View.OnClickListene
         return Uri.parse(result);
     }
 
+    /**
+     * Explicit Intent: tem o Contexto(this) e a classe que realizará o trabalho. Move-se para a próxima tela
+     */
+    private void moveToNextScreen() {
 
+        if (pictureTaken) {
+            Intent nextScreenIntent = new Intent(this, EnterTextActivity.class);
+            nextScreenIntent.putExtra(IMAGE_URI_KEY, selectedPhotoPath);
+            nextScreenIntent.putExtra(BITMAP_WIDTH, takePictureImageView.getWidth());
+            nextScreenIntent.putExtra(BITMAP_HEIGHT, takePictureImageView.getHeight());
+
+            startActivity(nextScreenIntent);
+        } else {
+            Toast.makeText(this, R.string.select_a_picture, Toast.LENGTH_SHORT).show();
+        }
+    }
 }
