@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
      * o tipo View não está definido ainda
      * */
     public void sendMessage(View view) {
-        // falta implementar
+        // Cria um Intent é uma
         Intent intent = new Intent(this, DisplayMessageActivity.class); // vai corrigir aqui
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
