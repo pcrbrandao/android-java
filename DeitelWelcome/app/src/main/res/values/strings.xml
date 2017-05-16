@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DeitelWelcome</string>
+    <string name="welcome">Bem-Vindo ao Desenvolvimento de Android App</string>
 </resources>
