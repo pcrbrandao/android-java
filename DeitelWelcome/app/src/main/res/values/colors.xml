@@ -3,5 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+<<<<<<< HEAD
     <color name="welcome_text_color">#2196f3</color>
+=======
+    <color name="welcomeTextColor">#2196f3</color>
+>>>>>>> origin/master
 </resources>
