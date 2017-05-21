@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Deitel Bem-vindo</string>
+    <string name="deitel_logo">Mascote Deitel em duplo positivo</string>
+    <string name="welcome">Bem-vindo ao desenvolvimento de App Android</string>
+</resources>
