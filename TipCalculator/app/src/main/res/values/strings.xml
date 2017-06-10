@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">Tip Calculator</string>
-    <string name="enter_amout">Enter amout</string>
-    <string name="tip_percent">15%</string>
-    <string name="tip">Tip</string>
-    <string name="total">Total</string>
+    <string name="app_name">TipCalculator</string>
 </resources>
