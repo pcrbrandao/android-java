@@ -2,5 +2,5 @@
 <resources>
     <string name="app_name">Advinha Bandeira</string>
     <string name="action_settings">Ajustes</string>
-    <string name="hello_world">Olá, Você!</string>
+    <string name="hello_world">Olá, Mundo!</string>
 </resources>
